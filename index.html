@@ -1,33 +1,937 @@
 <!DOCTYPE html>
-
 <html lang="th">
 <head>
   <meta charset="UTF-8">
-  <title>Plankton System Company</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plankton System | ระบบควบคุมอัตโนมัติ PCB Software Firmware</title>
+  <meta
+    name="description"
+    content="Plankton System ผู้ให้บริการออกแบบและจำหน่ายระบบควบคุมอัตโนมัติ PCB Software และ Firmware พร้อมข้อมูลติดต่อและแผนที่ในหน้าเดียว"
+  >
   <style>
+    :root {
+      --bg: #f5efe4;
+      --surface: rgba(255, 252, 246, 0.82);
+      --surface-strong: #fffaf1;
+      --text: #192119;
+      --muted: #5f685a;
+      --primary: #0f6b50;
+      --primary-strong: #0a4f3b;
+      --accent: #d68b2d;
+      --line: rgba(25, 33, 25, 0.09);
+      --shadow: 0 24px 70px rgba(49, 44, 28, 0.12);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --max-width: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
-      font-family: Arial;
-      text-align: center;
-      padding: 50px;
-      background: #f2f2f2;
+      margin: 0;
+      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(214, 139, 45, 0.18), transparent 32%),
+        radial-gradient(circle at top right, rgba(15, 107, 80, 0.16), transparent 28%),
+        linear-gradient(180deg, #f8f1e5 0%, #f5efe4 48%, #efe8da 100%);
     }
-    .card {
-      background: white;
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img,
+    iframe {
+      max-width: 100%;
+    }
+
+    .page-shell {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-shell::before,
+    .page-shell::after {
+      content: "";
+      position: fixed;
+      inset: auto;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      filter: blur(18px);
+      pointer-events: none;
+      opacity: 0.4;
+      z-index: 0;
+    }
+
+    .page-shell::before {
+      top: -70px;
+      left: -50px;
+      background: rgba(214, 139, 45, 0.22);
+    }
+
+    .page-shell::after {
+      right: -80px;
+      bottom: 14%;
+      background: rgba(15, 107, 80, 0.18);
+    }
+
+    .container {
+      width: min(calc(100% - 32px), var(--max-width));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .topbar {
+      padding: 22px 0;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      padding: 14px 18px;
+      border: 1px solid rgba(255, 255, 255, 0.52);
+      background: rgba(255, 250, 241, 0.72);
+      backdrop-filter: blur(16px);
+      border-radius: 999px;
+      box-shadow: 0 10px 35px rgba(52, 45, 29, 0.08);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 154px;
+      height: 62px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 0;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(25, 33, 25, 0.08);
+      box-shadow: 0 12px 30px rgba(15, 107, 80, 0.12);
+      flex: 0 0 auto;
+    }
+
+    .brand-mark svg {
+      display: block;
+      width: 138px;
+      height: auto;
+    }
+
+    .brand-mark .logo-stroke {
+      fill: none;
+      stroke: #111;
+      stroke-width: 6;
+      stroke-linecap: square;
+      stroke-linejoin: miter;
+    }
+
+    .brand-mark .logo-text {
+      fill: #111;
+      font-family: "Arial Narrow", "Trebuchet MS", sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+    }
+
+    .brand-copy {
+      min-width: 0;
+    }
+
+    .brand-copy strong,
+    .brand-copy span {
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .brand-copy strong {
+      font-size: 0.98rem;
+    }
+
+    .brand-copy span {
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: var(--primary);
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 20px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      transition: transform 0.24s ease, box-shadow 0.24s ease, background 0.24s ease;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      transform: translateY(-2px);
+    }
+
+    .button-primary {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 16px 30px rgba(15, 107, 80, 0.25);
+    }
+
+    .button-primary:hover,
+    .button-primary:focus-visible {
+      background: var(--primary-strong);
+    }
+
+    .button-secondary {
+      border-color: rgba(25, 33, 25, 0.12);
+      background: rgba(255, 255, 255, 0.6);
+      color: var(--text);
+    }
+
+    .hero {
+      padding: 34px 0 18px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .hero-copy,
+    .hero-panel,
+    .section-card,
+    .contact-card,
+    .map-card,
+    .faq-card {
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      background: var(--surface);
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius-xl);
+    }
+
+    .hero-copy {
       padding: 40px;
-      border-radius: 12px;
-      display: inline-block;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
-    h1 { margin-bottom: 20px; }
-    p { font-size: 18px; margin: 10px 0; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(214, 139, 45, 0.14);
+      color: #7a4b08;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      line-height: 1.08;
+    }
+
+    h1 {
+      margin-top: 22px;
+      font-size: clamp(2.7rem, 5vw, 5rem);
+      max-width: 11ch;
+    }
+
+    .lead {
+      margin: 22px 0 0;
+      font-size: 1.08rem;
+      line-height: 1.75;
+      color: var(--muted);
+      max-width: 60ch;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .metric {
+      padding: 18px;
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.55);
+      border: 1px solid rgba(25, 33, 25, 0.06);
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 1.4rem;
+      margin-bottom: 6px;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 0.94rem;
+      line-height: 1.5;
+    }
+
+    .hero-panel {
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 18px;
+      background:
+        linear-gradient(180deg, rgba(255, 250, 241, 0.82), rgba(248, 242, 230, 0.95)),
+        linear-gradient(135deg, rgba(15, 107, 80, 0.06), rgba(214, 139, 45, 0.08));
+    }
+
+    .highlight-card {
+      padding: 24px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(145deg, rgba(15, 107, 80, 0.94), rgba(17, 77, 59, 0.96));
+      color: #f6f3ea;
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .highlight-card p,
+    .info-list p,
+    .section-card p,
+    .contact-card p,
+    .faq-card p {
+      line-height: 1.7;
+      color: inherit;
+    }
+
+    .highlight-badge {
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.74);
+    }
+
+    .info-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .info-item {
+      padding: 18px;
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.62);
+      border: 1px solid rgba(25, 33, 25, 0.06);
+    }
+
+    .info-item strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 1.02rem;
+    }
+
+    section {
+      padding: 24px 0;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: end;
+      margin-bottom: 18px;
+    }
+
+    .section-head p {
+      margin: 0;
+      max-width: 56ch;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .section-card {
+      padding: 28px;
+    }
+
+    .section-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+
+    .section-card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .section-card .number {
+      display: inline-flex;
+      width: 42px;
+      height: 42px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      margin-bottom: 16px;
+      background: rgba(214, 139, 45, 0.16);
+      color: #8a570f;
+      font-weight: 800;
+    }
+
+    .about-grid,
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .contact-card,
+    .map-card,
+    .faq-card {
+      padding: 30px;
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .contact-item {
+      padding: 16px 18px;
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.56);
+      border: 1px solid rgba(25, 33, 25, 0.07);
+    }
+
+    .contact-item strong,
+    .faq-item strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .contact-item span,
+    .contact-item a,
+    .faq-item p,
+    footer p {
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .map-frame {
+      margin-top: 18px;
+      overflow: hidden;
+      border-radius: 18px;
+      border: 1px solid rgba(25, 33, 25, 0.08);
+      min-height: 340px;
+      background: #e7ecdf;
+    }
+
+    .map-frame iframe {
+      display: block;
+      width: 100%;
+      height: 340px;
+      border: 0;
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .faq-item {
+      padding: 18px 20px;
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.58);
+      border: 1px solid rgba(25, 33, 25, 0.07);
+    }
+
+    .faq-item p {
+      margin: 0;
+    }
+
+    .cta-strip {
+      margin-top: 8px;
+      padding: 26px 28px;
+      border-radius: var(--radius-xl);
+      background: linear-gradient(135deg, #fff7ea, #f0eadc);
+      border: 1px solid rgba(25, 33, 25, 0.07);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .cta-strip p {
+      margin: 8px 0 0;
+      color: var(--muted);
+    }
+
+    footer {
+      padding: 24px 0 40px;
+    }
+
+    footer p {
+      margin: 0;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      animation: rise 0.9s ease forwards;
+    }
+
+    .delay-1 {
+      animation-delay: 0.08s;
+    }
+
+    .delay-2 {
+      animation-delay: 0.16s;
+    }
+
+    .delay-3 {
+      animation-delay: 0.24s;
+    }
+
+    @keyframes rise {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .about-grid,
+      .contact-grid,
+      .section-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head,
+      .cta-strip {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .nav {
+        border-radius: 28px;
+        padding: 18px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .hero-copy,
+      .hero-panel,
+      .section-card,
+      .contact-card,
+      .map-card,
+      .faq-card {
+        padding: 24px;
+      }
+
+      .brand-mark {
+        width: 132px;
+        height: 54px;
+      }
+
+      .brand-mark svg {
+        width: 118px;
+      }
+
+      h1 {
+        max-width: none;
+        font-size: clamp(2.2rem, 12vw, 3.8rem);
+      }
+
+      .hero-metrics {
+        grid-template-columns: 1fr;
+      }
+
+      .button {
+        width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>Plankton System Co., Ltd.</h1>
-    
-    <p>📧 Email: info@xscalar.com</p>
-    <p>📍 กรุงเทพมหานคร ประเทศไทย</p>
+  <div class="page-shell">
+    <header class="topbar">
+      <div class="container">
+        <nav class="nav reveal">
+          <div class="brand">
+            <div class="brand-mark" aria-hidden="true">
+              <svg viewBox="0 0 260 120" role="img">
+                <path class="logo-stroke" d="M18 10 H240 V110 H18 V10" />
+                <path class="logo-stroke" d="M76 10 V42 H18" />
+                <text class="logo-text" x="90" y="52" font-size="34">LANKTON</text>
+                <text class="logo-text" x="64" y="95" font-size="34">SYSTEM</text>
+                <text class="logo-text" x="0" y="57" font-size="34">P</text>
+              </svg>
+            </div>
+            <div class="brand-copy">
+              <strong>Plankton System</strong>
+              <span>Automation, PCB, Software, Firmware</span>
+            </div>
+          </div>
+          <div class="nav-links">
+            <a href="#about">เกี่ยวกับเรา</a>
+            <a href="#services">บริการ</a>
+            <a href="#process">ขั้นตอนทำงาน</a>
+            <a href="#contact">ติดต่อ</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy reveal delay-1">
+            <span class="eyebrow">ผู้เชี่ยวชาญด้าน Automation, PCB, Software และ Firmware</span>
+            <h1>ออกแบบและพัฒนาระบบควบคุมอัตโนมัติให้ตอบโจทย์การใช้งานจริง</h1>
+            <p class="lead">
+              บริษัท Plankton System จำกัด ให้บริการออกแบบ จำหน่าย และพัฒนาระบบควบคุมอัตโนมัติ
+              รวมถึงงานด้าน PCB, Software และ Firmware เพื่อรองรับความต้องการที่หลากหลายของภาคอุตสาหกรรม
+              และธุรกิจที่ต้องการโซลูชันที่เชื่อถือได้ พร้อมใช้งาน และต่อยอดได้ในระยะยาว
+            </p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="mailto:info@xscalar.com">ส่งอีเมลหาเรา</a>
+              <a class="button button-secondary" href="https://www.facebook.com/planktonsystem/" target="_blank" rel="noreferrer">ดู Facebook</a>
+              <a class="button button-secondary" href="#contact">ดูข้อมูลติดต่อ</a>
+            </div>
+            <div class="hero-metrics">
+              <div class="metric">
+                <strong>Automation</strong>
+                <span>ออกแบบและจัดหาระบบควบคุมอัตโนมัติให้เหมาะกับลักษณะงานและกระบวนการของลูกค้า</span>
+              </div>
+              <div class="metric">
+                <strong>PCB & Firmware</strong>
+                <span>รองรับงานออกแบบวงจรและพัฒนาเฟิร์มแวร์ให้สอดคล้องกับการทำงานของระบบโดยรวม</span>
+              </div>
+              <div class="metric">
+                <strong>Software Ready</strong>
+                <span>ต่อยอดงานควบคุมด้วยซอฟต์แวร์ที่ช่วยให้ระบบใช้งานได้อย่างมีประสิทธิภาพและขยายต่อได้</span>
+              </div>
+            </div>
+          </div>
+
+          <aside class="hero-panel reveal delay-2">
+            <div class="highlight-card">
+              <div>
+                <div class="highlight-badge">Company Snapshot</div>
+                <h2 style="margin-top: 14px;">บริษัท Plankton System จำกัด</h2>
+              </div>
+              <p>
+                เราพร้อมสนับสนุนลูกค้าตั้งแต่แนวคิดเริ่มต้น การออกแบบระบบ การพัฒนาอุปกรณ์และซอฟต์แวร์
+                ไปจนถึงการส่งมอบโซลูชันที่พร้อมใช้งานอย่างเหมาะสมกับหน้างานจริง
+              </p>
+            </div>
+
+            <div class="info-list">
+              <div class="info-item">
+                <strong>เหมาะกับใคร</strong>
+                <p>เหมาะสำหรับโรงงาน ผู้ประกอบการ และองค์กรที่ต้องการพัฒนาระบบควบคุมอัตโนมัติหรือโซลูชันอิเล็กทรอนิกส์เฉพาะทาง</p>
+              </div>
+              <div class="info-item">
+                <strong>สิ่งที่ควรใส่เพิ่มภายหลัง</strong>
+                <p>เบอร์โทรศัพท์, Line, เวลาทำการ, โลโก้บริษัท, ภาพผลงาน, กลุ่มลูกค้าที่เคยดูแล และตัวอย่างโครงการ</p>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="about">
+        <div class="container">
+          <div class="section-head reveal">
+            <div>
+              <span class="eyebrow">About Us</span>
+              <h2 style="margin-top: 16px; font-size: clamp(2rem, 4vw, 3rem);">รู้จัก Plankton System ให้มากขึ้น</h2>
+            </div>
+            <p>
+              เรานำเสนอข้อมูลสำคัญของบริษัทอย่างกระชับ เพื่อให้ลูกค้าเห็นภาพความเชี่ยวชาญ
+              และเข้าใจได้ทันทีว่า Plankton System สามารถช่วยขับเคลื่อนโครงการของเขาได้อย่างไร
+            </p>
+          </div>
+
+          <div class="about-grid">
+            <article class="section-card reveal delay-1">
+              <h3>ภาพรวมบริษัท</h3>
+              <p>
+                บริษัท Plankton System จำกัด ดำเนินธุรกิจด้านการออกแบบและจำหน่ายระบบควบคุมอัตโนมัติ
+                พร้อมบริการด้าน PCB, Software และ Firmware เพื่อรองรับทั้งงานพัฒนาระบบใหม่และการปรับปรุงระบบเดิม
+              </p>
+            </article>
+            <article class="section-card reveal delay-2">
+              <h3>แนวทางการทำงาน</h3>
+              <p>
+                เรามุ่งเน้นการออกแบบโซลูชันให้สอดคล้องกับการใช้งานจริง โดยพิจารณาทั้งด้านฮาร์ดแวร์ ซอฟต์แวร์
+                และความต่อเนื่องของระบบ เพื่อให้ลูกค้าได้รับงานที่พร้อมใช้งานและดูแลต่อได้อย่างมั่นใจ
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="services">
+        <div class="container">
+          <div class="section-head reveal">
+            <div>
+              <span class="eyebrow">Services</span>
+              <h2 style="margin-top: 16px; font-size: clamp(2rem, 4vw, 3rem);">บริการหลักของเรา</h2>
+            </div>
+            <p>
+              บริการของเราครอบคลุมตั้งแต่งานออกแบบระบบ ไปจนถึงงานพัฒนาอุปกรณ์และซอฟต์แวร์ที่เกี่ยวข้อง
+            </p>
+          </div>
+
+          <div class="section-grid">
+            <article class="section-card reveal delay-1">
+              <div class="number">01</div>
+              <h3>ระบบควบคุมอัตโนมัติ</h3>
+              <p>
+                ให้บริการออกแบบและจำหน่ายระบบควบคุมอัตโนมัติที่ช่วยเพิ่มประสิทธิภาพ ความแม่นยำ และความเสถียรในการทำงาน
+              </p>
+            </article>
+            <article class="section-card reveal delay-2">
+              <div class="number">02</div>
+              <h3>PCB, Software และ Firmware</h3>
+              <p>
+                รองรับการออกแบบและพัฒนางานด้านแผงวงจร ซอฟต์แวร์ และเฟิร์มแวร์ เพื่อให้ทุกองค์ประกอบของระบบทำงานร่วมกันได้อย่างมีประสิทธิภาพ
+              </p>
+            </article>
+            <article class="section-card reveal delay-3">
+              <div class="number">03</div>
+              <h3>โซลูชันตามความต้องการ</h3>
+              <p>
+                พัฒนาแนวทางที่เหมาะสมกับลักษณะงานเฉพาะของลูกค้า เพื่อให้ได้โซลูชันที่ตอบโจทย์ทั้งการใช้งานปัจจุบันและการขยายในอนาคต
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="container">
+          <div class="section-head reveal">
+            <div>
+              <span class="eyebrow">Why Choose Us</span>
+              <h2 style="margin-top: 16px; font-size: clamp(2rem, 4vw, 3rem);">ทำไมลูกค้าจึงควรคุยกับเรา</h2>
+            </div>
+            <p>
+              จุดแข็งของเราคือความสามารถในการดูแลงานได้ครอบคลุมและเชื่อมโยงกันเป็นระบบเดียว
+            </p>
+          </div>
+
+          <div class="section-grid">
+            <article class="section-card reveal delay-1">
+              <h3>ครอบคลุมหลายชั้นของระบบ</h3>
+              <p>ดูแลงานได้ตั้งแต่ระบบควบคุมอัตโนมัติไปจนถึง PCB, Software และ Firmware ช่วยลดความซับซ้อนในการประสานงานหลายฝ่าย</p>
+            </article>
+            <article class="section-card reveal delay-2">
+              <h3>ข้อมูลติดต่อชัดเจน</h3>
+              <p>มีช่องทางติดต่อที่เข้าถึงง่าย ทั้งอีเมล Facebook ที่อยู่บริษัท และลิงก์แผนที่สำหรับค้นหาตำแหน่งได้ทันที</p>
+            </article>
+            <article class="section-card reveal delay-3">
+              <h3>พร้อมพัฒนาต่อได้</h3>
+              <p>เมื่อมีผลงาน ตัวอย่างโครงการ หรือข้อมูลเชิงเทคนิคเพิ่มเติม หน้าเว็บไซต์นี้สามารถต่อยอดให้มีความน่าเชื่อถือและครบถ้วนยิ่งขึ้นได้ทันที</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="process">
+        <div class="container">
+          <div class="section-head reveal">
+            <div>
+              <span class="eyebrow">Process</span>
+              <h2 style="margin-top: 16px; font-size: clamp(2rem, 4vw, 3rem);">แนวทางการทำงานกับลูกค้า</h2>
+            </div>
+            <p>
+              กระบวนการทำงานที่ชัดเจนช่วยให้ลูกค้ามองเห็นลำดับขั้นตอน ตั้งแต่การพูดคุยเบื้องต้นไปจนถึงการเริ่มต้นโครงการ
+            </p>
+          </div>
+
+          <div class="section-grid">
+            <article class="section-card reveal delay-1">
+              <div class="number">1</div>
+              <h3>รับข้อมูลเบื้องต้น</h3>
+              <p>ลูกค้าสามารถส่งรายละเอียดความต้องการหรือปัญหาที่ต้องการแก้ไขผ่านอีเมลหรือ Facebook เพื่อให้ทีมเริ่มวิเคราะห์ได้อย่างรวดเร็ว</p>
+            </article>
+            <article class="section-card reveal delay-2">
+              <div class="number">2</div>
+              <h3>ประเมินและเสนอแนวทาง</h3>
+              <p>ทีมงานวิเคราะห์โจทย์และเสนอแนวทางที่เหมาะสมกับลักษณะงาน ไม่ว่าจะเป็นระบบควบคุมอัตโนมัติ งาน PCB ซอฟต์แวร์ หรือเฟิร์มแวร์</p>
+            </article>
+            <article class="section-card reveal delay-3">
+              <div class="number">3</div>
+              <h3>เริ่มงานและติดตามผล</h3>
+              <p>หลังจากสรุปแนวทางร่วมกันแล้ว ทีมจะดำเนินการพัฒนา ส่งมอบงาน และติดตามผลตามขอบเขตของโครงการ</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div class="container">
+          <div class="section-head reveal">
+            <div>
+              <span class="eyebrow">Contact</span>
+              <h2 style="margin-top: 16px; font-size: clamp(2rem, 4vw, 3rem);">ช่องทางติดต่อและตำแหน่งที่ตั้ง</h2>
+            </div>
+            <p>
+              หากต้องการสอบถามข้อมูลเพิ่มเติมหรือเริ่มพูดคุยเกี่ยวกับโครงการ สามารถติดต่อเราได้ตามช่องทางด้านล่าง
+            </p>
+          </div>
+
+          <div class="contact-grid">
+            <div class="contact-card reveal delay-1">
+              <h3>ติดต่อเรา</h3>
+              <p>ข้อมูลติดต่อและที่ตั้งของบริษัทพร้อมสำหรับการใช้งาน และสามารถเพิ่มเติมรายละเอียดอื่นได้ภายหลังตามความเหมาะสม</p>
+
+              <div class="contact-list">
+                <div class="contact-item">
+                  <strong>ชื่อบริษัท</strong>
+                  <span>บริษัท Plankton System จำกัด</span>
+                </div>
+                <div class="contact-item">
+                  <strong>อีเมล</strong>
+                  <a href="mailto:info@xscalar.com">info@xscalar.com</a>
+                </div>
+                <div class="contact-item">
+                  <strong>Facebook</strong>
+                  <a href="https://www.facebook.com/planktonsystem/" target="_blank" rel="noreferrer">facebook.com/planktonsystem</a>
+                </div>
+                <div class="contact-item">
+                  <strong>ที่ตั้ง</strong>
+                  <span>301/1 Bangkok-Nonthaburi 13 Rd. Bangsue, Bangsue, Bangkok, Thailand 10800</span>
+                </div>
+                <div class="contact-item">
+                  <strong>ข้อมูลที่แนะนำให้ใส่เพิ่ม</strong>
+                  <span>เบอร์โทรศัพท์, Line, เวลาทำการ, โลโก้บริษัท และตัวอย่างผลงานหรือโครงการที่ผ่านมา</span>
+                </div>
+              </div>
+
+              <div class="hero-actions" style="margin-top: 22px;">
+                <a class="button button-primary" href="mailto:info@xscalar.com?subject=สอบถามข้อมูลเพิ่มเติมจากเว็บไซต์">เริ่มต้นติดต่อ</a>
+                <a class="button button-secondary" href="https://www.facebook.com/planktonsystem/" target="_blank" rel="noreferrer">ทักผ่าน Facebook</a>
+              </div>
+            </div>
+
+            <div class="map-card reveal delay-2">
+              <h3>แผนที่ตำแหน่งบริษัท</h3>
+              <p>
+                ลูกค้าสามารถใช้แผนที่ด้านล่างเพื่อค้นหาตำแหน่งของบริษัทได้สะดวกยิ่งขึ้น หรือเปิดดูผ่าน Google Maps โดยตรง
+              </p>
+              <div class="map-frame">
+                <iframe
+                  title="แผนที่บริษัท Plankton System จำกัด"
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"
+                  src="https://maps.google.com/maps?q=301%2F1%20Bangkok-Nonthaburi%2013%20Rd.%20Bangsue%2C%20Bangsue%2C%20Bangkok%2C%20Thailand%2010800&z=16&output=embed"
+                ></iframe>
+              </div>
+              <div class="hero-actions" style="margin-top: 18px;">
+                <a class="button button-secondary" href="https://maps.app.goo.gl/ajmyJHcwx1hqjdjZ9" target="_blank" rel="noreferrer">เปิดใน Google Maps</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="container">
+          <div class="faq-card reveal">
+            <span class="eyebrow">Additional Information</span>
+            <h2 style="margin-top: 16px; font-size: clamp(2rem, 4vw, 3rem);">ข้อมูลเพิ่มเติมที่ช่วยให้เว็บไซต์สมบูรณ์ยิ่งขึ้น</h2>
+            <div class="faq-list">
+              <div class="faq-item">
+                <strong>1. โลโก้และภาพประกอบของบริษัท</strong>
+                <p>ช่วยเสริมภาพลักษณ์ของแบรนด์และทำให้หน้าเว็บไซต์มีความเป็นทางการมากยิ่งขึ้น</p>
+              </div>
+              <div class="faq-item">
+                <strong>2. ผลงานหรือประเภทโครงการที่ผ่านมา</strong>
+                <p>หากมีตัวอย่างระบบที่เคยออกแบบหรือกลุ่มอุตสาหกรรมที่เคยดูแล จะช่วยเพิ่มความน่าเชื่อถือได้อย่างมาก</p>
+              </div>
+              <div class="faq-item">
+                <strong>3. ช่องทางติดต่อเพิ่มเติม</strong>
+                <p>การเพิ่มเบอร์โทรศัพท์หรือ Line Official จะช่วยให้ลูกค้าติดต่อได้สะดวกและรวดเร็วยิ่งขึ้น</p>
+              </div>
+              <div class="faq-item">
+                <strong>4. ข้อมูลสนับสนุนการตัดสินใจ</strong>
+                <p>เช่น เวลาทำการ ประเภทโครงการที่รับ พื้นที่ให้บริการ หรือคำถามที่พบบ่อยก่อนเริ่มต้นงาน</p>
+              </div>
+            </div>
+
+            <div class="cta-strip">
+              <div>
+                <strong>หากต้องการให้หน้าเว็บไซต์ครบถ้วนมากขึ้น สามารถส่งข้อมูลเพิ่มเติมได้</strong>
+                <p>เช่น เบอร์โทรศัพท์, Line, โลโก้, ภาพหน้างาน, ตัวอย่างผลงาน, รายชื่อลูกค้า หรืออุตสาหกรรมที่เคยดูแล รวมถึงเวลาทำการ</p>
+              </div>
+              <a class="button button-secondary" href="mailto:info@xscalar.com?subject=อัปเดตข้อมูล Landing Page">ส่งข้อมูลเพิ่มเติม</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>Plankton System Co., Ltd. | Email: info@xscalar.com | Facebook: facebook.com/planktonsystem</p>
+      </div>
+    </footer>
   </div>
 </body>
 </html>
