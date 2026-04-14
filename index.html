@@ -3,28 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Plankton System | ระบบควบคุมอัตโนมัติ PCB Software Firmware</title>
+  <title>Plankton System | Automation, PCB, Software, Firmware</title>
   <meta
     name="description"
-    content="Plankton System ผู้ให้บริการออกแบบและจำหน่ายระบบควบคุมอัตโนมัติ PCB Software และ Firmware พร้อมข้อมูลติดต่อและแผนที่ในหน้าเดียว"
+    content="Plankton System ให้บริการออกแบบและพัฒนาระบบควบคุมอัตโนมัติ PCB Software และ Firmware สำหรับงานอุตสาหกรรมและโซลูชันเฉพาะทาง"
   >
   <style>
     :root {
-      --bg: #f7f3ec;
-      --bg-soft: #fdfaf4;
-      --surface: rgba(255, 255, 255, 0.8);
-      --surface-strong: #fffdf9;
-      --text: #18201c;
-      --muted: #5f685f;
-      --line: rgba(24, 32, 28, 0.1);
-      --primary: #0f5c47;
-      --primary-strong: #0b4636;
-      --accent: #d58b37;
-      --shadow-soft: 0 20px 50px rgba(33, 39, 34, 0.07);
+      --bg: #ffffff;
+      --surface: #f5f5f5;
+      --surface-strong: #ffffff;
+      --text: #0b0b0b;
+      --muted: #5c5c5c;
+      --line: #d8d8d8;
+      --line-strong: #111111;
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.06);
       --radius-xl: 32px;
       --radius-lg: 24px;
       --radius-md: 18px;
-      --max-width: 1120px;
+      --max-width: 1160px;
     }
 
     * {
@@ -40,8 +37,7 @@
       font-family: "Noto Sans Thai", "Sarabun", "Segoe UI", sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at top left, rgba(213, 139, 55, 0.12), transparent 30%),
-        linear-gradient(180deg, #fcf7ee 0%, #f7f3ec 46%, #f2ede4 100%);
+        linear-gradient(180deg, #ffffff 0%, #fcfcfc 60%, #f8f8f8 100%);
     }
 
     a {
@@ -62,48 +58,29 @@
     }
 
     section {
-      padding: 36px 0;
-    }
-
-    .page-shell {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .page-shell::before {
-      content: "";
-      position: absolute;
-      inset: 120px auto auto -120px;
-      width: 320px;
-      height: 320px;
-      border-radius: 50%;
-      background: rgba(15, 92, 71, 0.06);
-      filter: blur(16px);
-      pointer-events: none;
+      padding: 40px 0;
     }
 
     .container {
       width: min(calc(100% - 32px), var(--max-width));
       margin: 0 auto;
-      position: relative;
-      z-index: 1;
     }
 
     .topbar {
-      padding: 22px 0 12px;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      padding: 14px 0;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     }
 
     .nav {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
       gap: 18px;
-      padding: 16px 20px;
-      border: 1px solid rgba(255, 255, 255, 0.72);
-      background: rgba(255, 253, 249, 0.72);
-      backdrop-filter: blur(14px);
-      border-radius: 999px;
-      box-shadow: 0 12px 30px rgba(33, 39, 34, 0.05);
     }
 
     .brand {
@@ -114,17 +91,17 @@
     }
 
     .brand-mark {
-      width: 156px;
-      height: 64px;
+      width: 168px;
+      height: 68px;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 6px 8px;
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.92);
-      border: 1px solid rgba(24, 32, 28, 0.08);
-      flex: 0 0 auto;
+      padding: 6px 10px;
+      border-radius: 16px;
+      background: #ffffff;
+      border: 1px solid var(--line);
       overflow: hidden;
+      flex: 0 0 auto;
     }
 
     .brand-mark img {
@@ -132,6 +109,10 @@
       width: 100%;
       height: 100%;
       object-fit: contain;
+    }
+
+    .brand-copy {
+      min-width: 0;
     }
 
     .brand-copy strong,
@@ -143,39 +124,39 @@
     }
 
     .brand-copy strong {
-      font-size: 0.98rem;
+      font-size: 1rem;
+      letter-spacing: 0.02em;
     }
 
     .brand-copy span {
       margin-top: 3px;
       color: var(--muted);
-      font-size: 0.83rem;
+      font-size: 0.84rem;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 20px;
-      color: var(--muted);
+      gap: 22px;
       font-size: 0.95rem;
+      color: var(--muted);
     }
 
     .nav-links a:hover,
     .nav-links a:focus-visible {
-      color: var(--primary);
+      color: var(--text);
     }
 
     .button {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
       min-height: 48px;
-      padding: 12px 20px;
+      padding: 12px 22px;
       border-radius: 999px;
-      border: 1px solid transparent;
+      border: 1px solid var(--line-strong);
       font-weight: 700;
-      transition: transform 0.22s ease, box-shadow 0.22s ease, background-color 0.22s ease;
+      transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
     }
 
     .button:hover,
@@ -184,66 +165,63 @@
     }
 
     .button-primary {
-      color: #fff;
-      background: var(--primary);
-      box-shadow: 0 14px 26px rgba(15, 92, 71, 0.18);
+      color: #ffffff;
+      background: #111111;
     }
 
     .button-primary:hover,
     .button-primary:focus-visible {
-      background: var(--primary-strong);
+      background: #000000;
     }
 
     .button-secondary {
-      color: var(--text);
-      background: rgba(255, 255, 255, 0.55);
-      border-color: var(--line);
+      color: #111111;
+      background: transparent;
     }
 
     .hero {
-      padding: 18px 0 52px;
+      padding: 48px 0 32px;
     }
 
     .hero-shell {
       display: grid;
-      grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+      grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
       gap: 28px;
       align-items: stretch;
-      padding: 36px;
-      border: 1px solid rgba(255, 255, 255, 0.7);
+    }
+
+    .hero-main {
+      padding: 42px;
+      border: 1.5px solid #111111;
       border-radius: var(--radius-xl);
       background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 252, 246, 0.88)),
-        linear-gradient(135deg, rgba(15, 92, 71, 0.03), rgba(213, 139, 55, 0.08));
-      box-shadow: var(--shadow-soft);
+        linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 248, 248, 0.98));
+      box-shadow: var(--shadow);
     }
 
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: rgba(213, 139, 55, 0.12);
-      color: #87510f;
-      font-size: 0.88rem;
+    .hero-kicker {
+      display: inline-block;
+      font-size: 0.84rem;
       font-weight: 700;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
     }
 
-    .hero-copy h1 {
-      margin-top: 22px;
-      font-size: clamp(2.7rem, 5vw, 4.8rem);
-      line-height: 1.03;
-      max-width: 11ch;
+    .hero-main h1 {
+      margin-top: 16px;
+      font-size: clamp(2.8rem, 5vw, 5.5rem);
+      line-height: 0.98;
+      max-width: 9ch;
+      letter-spacing: -0.04em;
     }
 
     .lead {
-      margin-top: 20px;
-      max-width: 58ch;
-      font-size: 1.06rem;
-      line-height: 1.8;
+      margin-top: 24px;
+      max-width: 62ch;
       color: var(--muted);
+      line-height: 1.85;
+      font-size: 1.05rem;
     }
 
     .hero-actions {
@@ -253,107 +231,105 @@
       margin-top: 28px;
     }
 
-    .hero-metrics {
+    .hero-stats {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 32px;
+      gap: 12px;
+      margin-top: 34px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
     }
 
-    .metric {
-      padding: 18px;
-      border-radius: var(--radius-md);
-      background: rgba(255, 255, 255, 0.56);
-      border: 1px solid rgba(24, 32, 28, 0.06);
+    .stat {
+      padding-right: 10px;
     }
 
-    .metric strong {
+    .stat strong {
       display: block;
-      font-size: 1.04rem;
-      margin-bottom: 8px;
+      font-size: 1.2rem;
+      margin-bottom: 6px;
     }
 
-    .metric span {
+    .stat span {
       display: block;
       color: var(--muted);
-      font-size: 0.93rem;
-      line-height: 1.6;
+      line-height: 1.65;
+      font-size: 0.94rem;
     }
 
-    .hero-aside {
+    .hero-side {
       display: grid;
       gap: 16px;
-      align-content: start;
     }
 
-    .hero-panel,
-    .section-card,
+    .side-card,
+    .section-panel,
     .contact-card,
     .map-card,
-    .faq-card {
-      border: 1px solid rgba(255, 255, 255, 0.74);
-      border-radius: var(--radius-lg);
-      background: var(--surface);
-      box-shadow: var(--shadow-soft);
-    }
-
-    .hero-panel {
+    .customer-panel {
       padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: var(--surface-strong);
+      box-shadow: var(--shadow);
     }
 
-    .hero-panel h2 {
-      font-size: 1.45rem;
-      line-height: 1.25;
+    .side-card.dark {
+      background: #111111;
+      color: #ffffff;
+      border-color: #111111;
     }
 
-    .hero-panel p {
-      margin-top: 14px;
+    .side-card h2,
+    .side-card h3,
+    .section-panel h3,
+    .contact-card h3,
+    .map-card h3 {
+      font-size: 1.2rem;
+      line-height: 1.3;
+    }
+
+    .side-card p,
+    .section-panel p,
+    .contact-card p,
+    .map-card p {
+      margin-top: 12px;
+      line-height: 1.75;
       color: var(--muted);
-      line-height: 1.7;
     }
 
-    .mini-list {
-      display: grid;
-      gap: 12px;
-      margin-top: 18px;
-    }
-
-    .mini-item {
-      padding-top: 14px;
-      border-top: 1px solid rgba(24, 32, 28, 0.08);
-    }
-
-    .mini-item strong {
-      display: block;
-      margin-bottom: 6px;
-      font-size: 0.98rem;
-    }
-
-    .mini-item span {
-      display: block;
-      color: var(--muted);
-      line-height: 1.6;
-      font-size: 0.94rem;
+    .side-card.dark p {
+      color: rgba(255, 255, 255, 0.78);
     }
 
     .section-heading {
       display: grid;
-      grid-template-columns: minmax(0, 0.75fr) minmax(0, 1fr);
-      gap: 18px;
+      grid-template-columns: minmax(0, 0.7fr) minmax(0, 1fr);
+      gap: 22px;
       align-items: end;
       margin-bottom: 22px;
     }
 
+    .section-heading span {
+      display: inline-block;
+      font-size: 0.84rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
     .section-heading h2 {
-      margin-top: 14px;
-      font-size: clamp(2rem, 4vw, 3.1rem);
-      line-height: 1.08;
+      margin-top: 10px;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.04;
+      letter-spacing: -0.03em;
     }
 
     .section-heading p {
       color: var(--muted);
-      line-height: 1.75;
-      max-width: 58ch;
+      line-height: 1.85;
+      max-width: 60ch;
     }
 
     .grid-2,
@@ -370,173 +346,126 @@
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
-    .section-card,
-    .contact-card,
-    .map-card,
-    .faq-card {
-      padding: 28px;
+    .panel-index {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 46px;
+      height: 46px;
+      padding: 0 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line-strong);
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
-    .section-card h3,
-    .contact-card h3,
-    .map-card h3 {
-      font-size: 1.2rem;
-      line-height: 1.35;
+    .section-panel h3 {
+      margin-top: 18px;
     }
 
-    .section-card p,
-    .contact-card p,
-    .map-card p,
-    .faq-card p {
-      margin-top: 10px;
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .contact-item {
+      padding: 16px 18px;
+      border-radius: var(--radius-md);
+      background: var(--surface);
+      border: 1px solid var(--line);
+    }
+
+    .contact-item strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .contact-item span,
+    .contact-item a {
       color: var(--muted);
       line-height: 1.7;
     }
 
-    .icon-chip,
-    .step-number {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 44px;
-      height: 44px;
-      padding: 0 14px;
-      border-radius: 14px;
-      background: rgba(213, 139, 55, 0.12);
-      color: #87510f;
-      font-weight: 800;
-      font-size: 0.92rem;
-      letter-spacing: 0.04em;
-    }
-
-    .section-card h3 {
+    .map-frame {
       margin-top: 18px;
+      overflow: hidden;
+      min-height: 360px;
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      background: #efefef;
     }
 
-    .section-card.featured {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(251, 247, 239, 0.96));
+    .map-frame iframe {
+      display: block;
+      width: 100%;
+      height: 360px;
+      border: 0;
     }
 
-    .split-band {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 18px;
-      align-items: stretch;
+    .customer-panel {
+      padding: 30px;
     }
 
     .logo-wall {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 16px;
+      margin-top: 10px;
     }
 
     .logo-card {
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 124px;
-      padding: 20px;
+      min-height: 120px;
+      padding: 18px;
+      border: 1px solid var(--line);
       border-radius: var(--radius-md);
-      background: rgba(255, 255, 255, 0.68);
-      border: 1px solid rgba(24, 32, 28, 0.07);
+      background: #ffffff;
     }
 
     .logo-card img {
       display: block;
       max-width: 100%;
-      max-height: 58px;
+      max-height: 60px;
       width: auto;
       height: auto;
       object-fit: contain;
-      filter: saturate(0.92) contrast(1.02);
+      filter: grayscale(1) contrast(1.02);
     }
 
-    .logo-note {
-      margin-top: 16px;
-      color: var(--muted);
-      line-height: 1.7;
-      font-size: 0.95rem;
-    }
-
-    .contact-list,
-    .faq-list {
-      display: grid;
-      gap: 12px;
-      margin-top: 18px;
-    }
-
-    .contact-item,
-    .faq-item {
-      padding: 16px 18px;
-      border-radius: var(--radius-md);
-      background: rgba(255, 255, 255, 0.55);
-      border: 1px solid rgba(24, 32, 28, 0.07);
-    }
-
-    .contact-item strong,
-    .faq-item strong {
-      display: block;
-      margin-bottom: 6px;
-    }
-
-    .contact-item span,
-    .contact-item a,
-    .faq-item p {
-      color: var(--muted);
-      line-height: 1.65;
-    }
-
-    .map-frame {
-      margin-top: 18px;
-      overflow: hidden;
-      min-height: 340px;
-      border-radius: 20px;
-      border: 1px solid rgba(24, 32, 28, 0.08);
-      background: #e8ece3;
-    }
-
-    .map-frame iframe {
-      display: block;
-      width: 100%;
-      height: 340px;
-      border: 0;
-    }
-
-    .cta-strip {
+    .contact-actions {
       display: flex;
-      justify-content: space-between;
-      gap: 18px;
-      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
       margin-top: 22px;
-      padding: 24px 26px;
-      border-radius: 24px;
-      background: linear-gradient(135deg, #fff9ee, #f3ece0);
-      border: 1px solid rgba(24, 32, 28, 0.08);
-    }
-
-    .cta-strip strong {
-      font-size: 1.06rem;
-    }
-
-    .cta-strip p {
-      margin-top: 6px;
     }
 
     footer {
       padding: 18px 0 40px;
+      border-top: 1px solid rgba(0, 0, 0, 0.06);
     }
 
     footer p {
-      text-align: center;
       color: var(--muted);
-      font-size: 0.94rem;
+      text-align: center;
       line-height: 1.7;
+      font-size: 0.94rem;
     }
 
     .reveal {
       opacity: 0;
-      transform: translateY(24px);
-      animation: rise 0.85s ease forwards;
+      transform: translateY(18px);
+      animation: rise 0.7s ease forwards;
     }
 
     .delay-1 {
@@ -563,22 +492,17 @@
       .section-heading,
       .grid-2,
       .grid-3,
-      .split-band,
+      .contact-layout,
       .logo-wall {
         grid-template-columns: 1fr;
-      }
-
-      .nav {
-        border-radius: 28px;
       }
 
       .nav-links {
         display: none;
       }
 
-      .cta-strip {
-        flex-direction: column;
-        align-items: start;
+      .hero-main h1 {
+        max-width: none;
       }
     }
 
@@ -587,34 +511,21 @@
         padding: 28px 0;
       }
 
-      .hero {
-        padding-bottom: 38px;
+      .brand-mark {
+        width: 142px;
+        height: 58px;
       }
 
-      .hero-shell,
-      .hero-panel,
-      .section-card,
+      .hero-main,
+      .side-card,
+      .section-panel,
       .contact-card,
       .map-card,
-      .faq-card {
+      .customer-panel {
         padding: 22px;
       }
 
-      .brand-mark {
-        width: 138px;
-        height: 56px;
-      }
-
-      .brand-mark img {
-        width: 100%;
-      }
-
-      .hero-copy h1 {
-        max-width: none;
-        font-size: clamp(2.2rem, 11vw, 3.7rem);
-      }
-
-      .hero-metrics {
+      .hero-stats {
         grid-template-columns: 1fr;
       }
 
@@ -625,341 +536,264 @@
   </style>
 </head>
 <body>
-  <div class="page-shell">
-    <header class="topbar">
+  <header class="topbar">
+    <div class="container">
+      <nav class="nav">
+        <div class="brand">
+          <div class="brand-mark">
+            <img src="images/Plankton_System_logo_512x512_white.jpg" alt="Plankton System logo">
+          </div>
+          <div class="brand-copy">
+            <strong>Plankton System</strong>
+            <span>Automation, PCB, Software, Firmware</span>
+          </div>
+        </div>
+        <div class="nav-links">
+          <a href="#about">เกี่ยวกับเรา</a>
+          <a href="#services">บริการ</a>
+          <a href="#customers">ลูกค้า</a>
+          <a href="#contact">ติดต่อ</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
       <div class="container">
-        <nav class="nav reveal">
-          <div class="brand">
-            <div class="brand-mark" aria-hidden="true">
-              <img src="images/Plankton_System_logo_512x512_white.jpg" alt="Plankton System logo">
+        <div class="hero-shell">
+          <div class="hero-main reveal">
+            <span class="hero-kicker">Plankton System Co., Ltd.</span>
+            <h1>Engineering systems for real-world operation.</h1>
+            <p class="lead">
+              Plankton System ให้บริการออกแบบและพัฒนาระบบควบคุมอัตโนมัติ งาน PCB ซอฟต์แวร์ และเฟิร์มแวร์
+              สำหรับโรงงาน ธุรกิจ และองค์กรที่ต้องการโซลูชันเฉพาะทางที่เชื่อถือได้ ใช้งานจริงได้ และต่อยอดได้ในระยะยาว
+            </p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="mailto:info@xscalar.com?subject=สอบถามโครงการกับ Plankton System">เริ่มต้นพูดคุย</a>
+              <a class="button button-secondary" href="#services">ดูบริการ</a>
             </div>
-            <div class="brand-copy">
-              <strong>Plankton System</strong>
-              <span>Automation, PCB, Software, Firmware</span>
+            <div class="hero-stats">
+              <div class="stat">
+                <strong>Automation</strong>
+                <span>ระบบควบคุมอัตโนมัติที่ออกแบบให้เหมาะกับกระบวนการทำงานจริง</span>
+              </div>
+              <div class="stat">
+                <strong>PCB & Firmware</strong>
+                <span>ออกแบบอุปกรณ์อิเล็กทรอนิกส์และพัฒนาเฟิร์มแวร์ให้ทำงานร่วมกันอย่างแม่นยำ</span>
+              </div>
+              <div class="stat">
+                <strong>Software Integration</strong>
+                <span>ต่อยอดด้วยซอฟต์แวร์เพื่อการควบคุม มอนิเตอร์ และบริหารจัดการระบบ</span>
+              </div>
             </div>
           </div>
-          <div class="nav-links">
-            <a href="#about">เกี่ยวกับเรา</a>
-            <a href="#services">บริการ</a>
-            <a href="#process">ขั้นตอนทำงาน</a>
-            <a href="#contact">ติดต่อ</a>
+
+          <div class="hero-side reveal delay-1">
+            <div class="side-card dark">
+              <h2>ออกแบบเพื่อการใช้งานจริงตั้งแต่ต้นทางถึงปลายทาง</h2>
+              <p>
+                เราทำงานตั้งแต่การรับโจทย์ วิเคราะห์ระบบ ออกแบบวงจรและอุปกรณ์
+                ไปจนถึงการพัฒนาซอฟต์แวร์และเฟิร์มแวร์เพื่อให้โซลูชันพร้อมใช้งานในสภาพแวดล้อมจริง
+              </p>
+            </div>
+            <div class="side-card">
+              <h3>ความเชี่ยวชาญหลัก</h3>
+              <p>ระบบควบคุมอัตโนมัติ, เครื่องจักรเฉพาะทาง, งานอิเล็กทรอนิกส์ฝังตัว, งานพัฒนาซอฟต์แวร์สำหรับระบบควบคุม และการเชื่อมต่ออุปกรณ์ในภาคอุตสาหกรรม</p>
+            </div>
           </div>
-        </nav>
+        </div>
       </div>
-    </header>
+    </section>
 
-    <main>
-      <section class="hero">
-        <div class="container">
-          <div class="hero-shell">
-            <div class="hero-copy reveal delay-1">
-              <span class="eyebrow">Automation, PCB, Software และ Firmware สำหรับงานจริง</span>
-              <h1>หน้าเว็บที่สื่อสารชัด ดูสบายตา และน่าเชื่อถือมากขึ้น</h1>
-              <p class="lead">
-                บริษัท Plankton System จำกัด ให้บริการออกแบบ จำหน่าย และพัฒนาระบบควบคุมอัตโนมัติ
-                รวมถึงงานด้าน PCB, Software และ Firmware สำหรับธุรกิจที่ต้องการโซลูชันที่ใช้งานได้จริง
-                เชื่อถือได้ และต่อยอดได้ในระยะยาว
-              </p>
-              <div class="hero-actions">
-                <a class="button button-primary" href="mailto:info@xscalar.com">ส่งอีเมลหาเรา</a>
-                <a class="button button-secondary" href="#services">ดูบริการหลัก</a>
-                <a class="button button-secondary" href="https://www.facebook.com/planktonsystem/" target="_blank" rel="noreferrer">Facebook</a>
-              </div>
-              <div class="hero-metrics">
-                <div class="metric">
-                  <strong>Automation</strong>
-                  <span>ออกแบบระบบควบคุมอัตโนมัติให้เหมาะกับกระบวนการทำงานจริงของลูกค้า</span>
-                </div>
-                <div class="metric">
-                  <strong>PCB & Firmware</strong>
-                  <span>พัฒนาแผงวงจรและเฟิร์มแวร์ให้สอดคล้องกับอุปกรณ์และระบบโดยรวม</span>
-                </div>
-                <div class="metric">
-                  <strong>Software Ready</strong>
-                  <span>ต่อยอดด้วยซอฟต์แวร์ที่ช่วยให้ระบบบริหารจัดการง่ายและขยายต่อได้</span>
-                </div>
-              </div>
-            </div>
-
-            <aside class="hero-aside reveal delay-2">
-              <div class="hero-panel">
-                <span class="eyebrow">Company Snapshot</span>
-                <h2>บริษัท Plankton System จำกัด</h2>
-                <p>
-                  เราดูแลงานตั้งแต่ช่วงวางแนวคิด ออกแบบระบบ พัฒนาอุปกรณ์และซอฟต์แวร์
-                  ไปจนถึงส่งมอบโซลูชันที่พร้อมใช้งานในหน้างานจริง
-                </p>
-                <div class="mini-list">
-                  <div class="mini-item">
-                    <strong>เหมาะกับใคร</strong>
-                    <span>โรงงาน ผู้ประกอบการ และองค์กรที่ต้องการระบบควบคุมหรืออุปกรณ์เฉพาะทาง</span>
-                  </div>
-                  <div class="mini-item">
-                    <strong>สิ่งที่ควรเติมในรอบถัดไป</strong>
-                    <span>เบอร์โทร, Line, เวลาทำการ, โลโก้บริษัท และตัวอย่างผลงานที่ผ่านมา</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="hero-panel">
-                <span class="icon-chip">FAST VIEW</span>
-                <p>
-                  หน้านี้ถูกจัดใหม่ให้ลดกรอบที่ไม่จำเป็น ลดสีที่ชนกัน และทำให้ผู้อ่านมองเห็นสาระสำคัญได้เร็วขึ้นตั้งแต่ช่วงแรกของหน้า
-                </p>
-              </div>
-            </aside>
-          </div>
-        </div>
-      </section>
-
-      <section id="about">
-        <div class="container">
-          <div class="section-heading reveal">
-            <div>
-              <span class="eyebrow">About Us</span>
-              <h2>รู้จัก Plankton System แบบกระชับและชัดเจน</h2>
-            </div>
-            <p>
-              เราจัดข้อมูลให้ลูกค้าเข้าใจได้ทันทีว่า Plankton System เชี่ยวชาญอะไร ทำงานอย่างไร
-              และเหมาะกับโครงการประเภทไหน โดยไม่ทำให้หน้าเว็บแน่นเกินไป
-            </p>
-          </div>
-
-          <div class="grid-2">
-            <article class="section-card reveal delay-1">
-              <span class="icon-chip">OVERVIEW</span>
-              <h3>ภาพรวมบริษัท</h3>
-              <p>
-                บริษัท Plankton System จำกัด ดำเนินธุรกิจด้านการออกแบบและจำหน่ายระบบควบคุมอัตโนมัติ
-                พร้อมบริการด้าน PCB, Software และ Firmware เพื่อรองรับทั้งงานพัฒนาระบบใหม่และการปรับปรุงระบบเดิม
-              </p>
-            </article>
-            <article class="section-card reveal delay-2">
-              <span class="icon-chip">APPROACH</span>
-              <h3>แนวทางการทำงาน</h3>
-              <p>
-                เราเน้นการออกแบบที่อิงการใช้งานจริง พิจารณาทั้งฮาร์ดแวร์ ซอฟต์แวร์ และความต่อเนื่องของระบบ
-                เพื่อให้ลูกค้าได้งานที่พร้อมใช้งานและดูแลต่อได้อย่างมั่นใจ
-              </p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section id="services">
-        <div class="container">
-          <div class="section-heading reveal">
-            <div>
-              <span class="eyebrow">Services</span>
-              <h2>บริการหลักที่อ่านง่ายและเห็นภาพเร็ว</h2>
-            </div>
-            <p>
-              เราแยกบริการเป็นกลุ่มชัดเจน เพื่อให้ผู้เข้าชมมองออกทันทีว่าทีมสามารถช่วยด้านใดได้บ้าง
-              และบริการใดเหมาะกับโจทย์ของตน
-            </p>
-          </div>
-
-          <div class="grid-3">
-            <article class="section-card featured reveal delay-1">
-              <span class="icon-chip">01</span>
-              <h3>ระบบควบคุมอัตโนมัติ</h3>
-              <p>
-                ออกแบบและจัดหาระบบควบคุมอัตโนมัติเพื่อเพิ่มประสิทธิภาพ ความแม่นยำ และความเสถียรในการทำงาน
-              </p>
-            </article>
-            <article class="section-card reveal delay-2">
-              <span class="icon-chip">02</span>
-              <h3>PCB, Software และ Firmware</h3>
-              <p>
-                รองรับงานออกแบบวงจร พัฒนาซอฟต์แวร์ และเฟิร์มแวร์ เพื่อให้ทุกองค์ประกอบของระบบทำงานร่วมกันได้อย่างมีประสิทธิภาพ
-              </p>
-            </article>
-            <article class="section-card reveal delay-3">
-              <span class="icon-chip">03</span>
-              <h3>โซลูชันตามความต้องการ</h3>
-              <p>
-                วางแนวทางที่เหมาะกับลักษณะงานเฉพาะของลูกค้า เพื่อรองรับทั้งการใช้งานปัจจุบันและการขยายในอนาคต
-              </p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section id="process">
-        <div class="container">
-          <div class="section-heading reveal">
-            <div>
-              <span class="eyebrow">Process</span>
-              <h2>ขั้นตอนทำงานที่เรียบง่ายและเป็นมิตร</h2>
-            </div>
-            <p>
-              เราจัด flow การนำเสนอใหม่ให้สั้น กระชับ และช่วยให้ลูกค้าเข้าใจเส้นทางการทำงานร่วมกันตั้งแต่ต้นจนจบ
-            </p>
-          </div>
-
-          <div class="grid-3">
-            <article class="section-card reveal delay-1">
-              <span class="step-number">STEP 1</span>
-              <h3>รับโจทย์และพูดคุยเบื้องต้น</h3>
-              <p>เริ่มจากทำความเข้าใจความต้องการ ปัญหา และข้อจำกัดของโครงการ เพื่อกำหนดทิศทางให้ตรงจุด</p>
-            </article>
-            <article class="section-card reveal delay-2">
-              <span class="step-number">STEP 2</span>
-              <h3>ประเมินและเสนอแนวทาง</h3>
-              <p>ทีมงานวิเคราะห์โจทย์และเสนอแนวทางที่เหมาะสม ไม่ว่าจะเป็นงาน automation, PCB, software หรือ firmware</p>
-            </article>
-            <article class="section-card reveal delay-3">
-              <span class="step-number">STEP 3</span>
-              <h3>พัฒนา ส่งมอบ และติดตามผล</h3>
-              <p>หลังสรุปแนวทางแล้ว ทีมจะดำเนินการพัฒนา ส่งมอบงาน และติดตามผลตามขอบเขตของโครงการ</p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section id="customers">
-        <div class="container">
-          <div class="section-heading reveal">
-            <div>
-              <span class="eyebrow">Customers</span>
-              <h2>ลูกค้าบางส่วนที่เคยร่วมงานกับเรา</h2>
-            </div>
-            <p>
-              เราเพิ่มส่วนนี้เพื่อช่วยให้ผู้เข้าชมเห็นความน่าเชื่อถือได้เร็วขึ้น โดยใช้โลโก้ลูกค้าจริงในรูปแบบที่สะอาดและดูเป็นระเบียบ
-            </p>
-          </div>
-
-          <div class="section-card reveal delay-1">
-            <div class="logo-wall">
-              <div class="logo-card"><img src="Customer_Logos/AIT.png" alt="AIT logo"></div>
-              <div class="logo-card"><img src="Customer_Logos/Archi-tronic.png" alt="Archi-tronic logo"></div>
-              <div class="logo-card"><img src="Customer_Logos/DIP.jpg" alt="DIP logo"></div>
-              <div class="logo-card"><img src="Customer_Logos/Interlab.png" alt="Interlab logo"></div>
-              <div class="logo-card"><img src="Customer_Logos/PowerStainless.jpg" alt="Power Stainless logo"></div>
-              <div class="logo-card"><img src="Customer_Logos/Ritanan.jpg" alt="Ritanan logo"></div>
-              <div class="logo-card"><img src="Customer_Logos/SCG.png" alt="SCG logo"></div>
-              <div class="logo-card"><img src="Customer_Logos/TGI.jpg" alt="TGI logo"></div>
-              <div class="logo-card"><img src="Customer_Logos/texplore.png" alt="TExplore logo"></div>
-            </div>
-            <p class="logo-note">
-              หากต้องการเพิ่มความน่าเชื่อถืออีกขั้น รอบถัดไปสามารถเติมชื่อโปรเจกต์สั้น ๆ หรือประเภทงานที่เคยทำร่วมกับลูกค้าแต่ละรายได้
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section id="contact">
-        <div class="container">
-          <div class="section-heading reveal">
-            <div>
-              <span class="eyebrow">Contact</span>
-              <h2>ข้อมูลติดต่อชัดเจน พร้อมแผนที่ในหน้าเดียว</h2>
-            </div>
-            <p>
-              ส่วนติดต่อถูกจัดใหม่ให้ใช้งานง่ายขึ้น แยกข้อมูลสำคัญออกจากแผนที่ชัดเจน และมีปุ่มเริ่มติดต่อที่เห็นเด่นพอดี
-            </p>
-          </div>
-
-          <div class="split-band">
-            <div class="contact-card reveal delay-1">
-              <h3>ติดต่อเรา</h3>
-              <p>หากต้องการเริ่มต้นพูดคุยเกี่ยวกับโครงการ สามารถติดต่อได้ผ่านช่องทางด้านล่าง</p>
-
-              <div class="contact-list">
-                <div class="contact-item">
-                  <strong>ชื่อบริษัท</strong>
-                  <span>บริษัท Plankton System จำกัด</span>
-                </div>
-                <div class="contact-item">
-                  <strong>อีเมล</strong>
-                  <a href="mailto:info@xscalar.com">info@xscalar.com</a>
-                </div>
-                <div class="contact-item">
-                  <strong>Facebook</strong>
-                  <a href="https://www.facebook.com/planktonsystem/" target="_blank" rel="noreferrer">facebook.com/planktonsystem</a>
-                </div>
-                <div class="contact-item">
-                  <strong>ที่ตั้ง</strong>
-                  <span>301/1 Bangkok-Nonthaburi 13 Rd. Bangsue, Bangsue, Bangkok, Thailand 10800</span>
-                </div>
-              </div>
-
-              <div class="hero-actions">
-                <a class="button button-primary" href="mailto:info@xscalar.com?subject=สอบถามข้อมูลเพิ่มเติมจากเว็บไซต์">เริ่มต้นติดต่อ</a>
-                <a class="button button-secondary" href="https://www.facebook.com/planktonsystem/" target="_blank" rel="noreferrer">ทักผ่าน Facebook</a>
-              </div>
-            </div>
-
-            <div class="map-card reveal delay-2">
-              <h3>แผนที่ตำแหน่งบริษัท</h3>
-              <p>เปิดดูเส้นทางหรือแชร์ตำแหน่งบริษัทได้สะดวกผ่าน Google Maps</p>
-              <div class="map-frame">
-                <iframe
-                  title="แผนที่บริษัท Plankton System จำกัด"
-                  loading="lazy"
-                  referrerpolicy="no-referrer-when-downgrade"
-                  src="https://maps.google.com/maps?q=Plankton%20System%20301%2F1%20Bangkok-Nonthaburi%2013%20Rd.%20Bangsue%20Bangkok%2010800&z=17&output=embed"
-                ></iframe>
-              </div>
-              <div class="hero-actions">
-                <a class="button button-secondary" href="https://maps.app.goo.gl/VuM4p9T3h2xVXg247" target="_blank" rel="noreferrer">เปิดใน Google Maps</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <div class="container">
-          <div class="faq-card reveal">
-            <div class="section-heading" style="margin-bottom: 0;">
-              <div>
-                <span class="eyebrow">Next Improvement</span>
-                <h2>ข้อมูลที่เพิ่มแล้วจะช่วยให้เว็บดูครบและมืออาชีพขึ้นอีก</h2>
-              </div>
-              <p>
-                ตอนนี้หน้าเว็บโล่งและอ่านง่ายขึ้นแล้ว ถ้าเติมข้อมูลเชิงความน่าเชื่อถืออีกนิด จะช่วยให้หน้าแรกแข็งแรงขึ้นมาก
-              </p>
-            </div>
-
-            <div class="faq-list">
-              <div class="faq-item">
-                <strong>โลโก้และภาพผลงาน</strong>
-                <p>ช่วยให้แบรนด์ดูชัดขึ้นและลดความรู้สึกว่าเป็นหน้าเว็บชั่วคราว</p>
-              </div>
-              <div class="faq-item">
-                <strong>ตัวอย่างโครงการที่ผ่านมา</strong>
-                <p>เพิ่มความน่าเชื่อถือและช่วยให้ลูกค้าเห็นความเชี่ยวชาญได้เร็วขึ้น</p>
-              </div>
-              <div class="faq-item">
-                <strong>ช่องทางติดต่อเพิ่มเติม</strong>
-                <p>เช่น เบอร์โทรหรือ Line Official เพื่อให้ติดต่อสะดวกขึ้นโดยเฉพาะบนมือถือ</p>
-              </div>
-              <div class="faq-item">
-                <strong>รายละเอียดการให้บริการ</strong>
-                <p>เช่น ประเภทงานที่รับ พื้นที่ให้บริการ และเวลาทำการ เพื่อช่วยให้ลูกค้าตัดสินใจง่ายขึ้น</p>
-              </div>
-            </div>
-
-            <div class="cta-strip">
-              <div>
-                <strong>หากอยากให้หน้าตาดีขึ้นอีกขั้น รอบถัดไปควรเพิ่มรูปงานจริงกับโลโก้บริษัท</strong>
-                <p>สองอย่างนี้จะช่วยให้เว็บดูน่าเชื่อถือขึ้นทันทีโดยไม่ต้องเพิ่มข้อความมาก</p>
-              </div>
-              <a class="button button-primary" href="mailto:info@xscalar.com?subject=ต้องการอัปเดตข้อมูลเว็บไซต์">ส่งข้อมูลเพิ่มเติม</a>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer>
+    <section id="about">
       <div class="container">
-        <p>
-          © 2026 Plankton System Co., Ltd. | Automation, PCB, Software, Firmware
-        </p>
+        <div class="section-heading reveal">
+          <div>
+            <span>About</span>
+            <h2>Plankton System คือทีมพัฒนาระบบที่เชื่อมงานฮาร์ดแวร์และซอฟต์แวร์เข้าด้วยกัน</h2>
+          </div>
+          <p>
+            เราให้ความสำคัญกับความเสถียร ความเหมาะสมของการใช้งาน และความสามารถในการดูแลต่อหลังส่งมอบ
+            เพื่อให้งานที่พัฒนาไม่ใช่เพียงต้นแบบ แต่เป็นระบบที่พร้อมใช้งานและขยายต่อได้จริง
+          </p>
+        </div>
+
+        <div class="grid-2">
+          <article class="section-panel reveal delay-1">
+            <span class="panel-index">Focus</span>
+            <h3>ออกแบบจากโจทย์ของหน้างาน</h3>
+            <p>
+              ทุกโครงการเริ่มจากการเข้าใจปัญหา เงื่อนไขการใช้งาน และข้อจำกัดของระบบเดิม
+              เพื่อให้แนวทางที่พัฒนาขึ้นตอบโจทย์ทั้งด้านเทคนิค ต้นทุน และการใช้งานระยะยาว
+            </p>
+          </article>
+          <article class="section-panel reveal delay-2">
+            <span class="panel-index">Method</span>
+            <h3>ทำงานครบตั้งแต่แนวคิดจนถึงการใช้งานจริง</h3>
+            <p>
+              เราดูแลทั้งการออกแบบอุปกรณ์ วงจร เฟิร์มแวร์ ซอฟต์แวร์ และการเชื่อมต่อระบบ
+              เพื่อให้ทุกองค์ประกอบทำงานร่วมกันอย่างเป็นระบบและลดช่องว่างระหว่างการออกแบบกับการใช้งานจริง
+            </p>
+          </article>
+        </div>
       </div>
-    </footer>
-  </div>
+    </section>
+
+    <section id="services">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div>
+            <span>Services</span>
+            <h2>บริการหลักของเรา</h2>
+          </div>
+          <p>
+            โครงสร้างบริการถูกจัดให้อ่านง่ายและชัดเจน เพื่อให้เห็นว่าทีมสามารถรองรับทั้งงานระบบควบคุม งานอุปกรณ์อิเล็กทรอนิกส์
+            และงานซอฟต์แวร์ที่ต้องเชื่อมกันในโครงการเดียว
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <article class="section-panel reveal delay-1">
+            <span class="panel-index">01</span>
+            <h3>Automation System</h3>
+            <p>ออกแบบและพัฒนาระบบควบคุมอัตโนมัติให้เหมาะกับกระบวนการผลิต เครื่องจักร และงานเฉพาะทางของแต่ละองค์กร</p>
+          </article>
+          <article class="section-panel reveal delay-2">
+            <span class="panel-index">02</span>
+            <h3>PCB & Embedded Development</h3>
+            <p>ออกแบบแผงวงจร พัฒนาเฟิร์มแวร์ และเชื่อมการทำงานของอุปกรณ์เพื่อให้ระบบมีความเสถียรและควบคุมได้ตรงตามโจทย์</p>
+          </article>
+          <article class="section-panel reveal delay-3">
+            <span class="panel-index">03</span>
+            <h3>Software & System Integration</h3>
+            <p>พัฒนาซอฟต์แวร์สำหรับควบคุม มอนิเตอร์ และจัดการข้อมูล พร้อมเชื่อมต่อระบบให้รองรับการใช้งานจริงในหน้างาน</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-heading reveal">
+          <div>
+            <span>Workflow</span>
+            <h2>กระบวนการทำงาน</h2>
+          </div>
+          <p>
+            เราทำงานแบบเป็นขั้นตอน ชัดเจน และสื่อสารง่าย เพื่อให้ลูกค้าติดตามความคืบหน้าและตัดสินใจร่วมกันได้ในทุกช่วงสำคัญของโครงการ
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <article class="section-panel reveal delay-1">
+            <span class="panel-index">Step 1</span>
+            <h3>รับโจทย์และวิเคราะห์ความต้องการ</h3>
+            <p>เริ่มจากการเข้าใจปัญหา เป้าหมาย ข้อจำกัด และสภาพการใช้งานจริง เพื่อกำหนดขอบเขตของงานให้ชัดเจน</p>
+          </article>
+          <article class="section-panel reveal delay-2">
+            <span class="panel-index">Step 2</span>
+            <h3>ออกแบบและพัฒนาแนวทางที่เหมาะสม</h3>
+            <p>ประเมินทางเลือก ออกแบบระบบ และพัฒนาองค์ประกอบที่เกี่ยวข้องทั้งด้านอุปกรณ์ เฟิร์มแวร์ และซอฟต์แวร์</p>
+          </article>
+          <article class="section-panel reveal delay-3">
+            <span class="panel-index">Step 3</span>
+            <h3>ส่งมอบและรองรับการใช้งานต่อเนื่อง</h3>
+            <p>ทดสอบ ปรับจูน และส่งมอบงานให้พร้อมใช้งาน พร้อมดูแลการเชื่อมต่อและการใช้งานต่อในขอบเขตของโครงการ</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="customers">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div>
+            <span>Customers</span>
+            <h2>ลูกค้าบางส่วนที่เคยร่วมงานกับเรา</h2>
+          </div>
+          <p>
+            ความไว้วางใจจากลูกค้าในหลายอุตสาหกรรมสะท้อนถึงความสามารถในการพัฒนาโซลูชันที่เหมาะกับการใช้งานจริงและบริบทของแต่ละองค์กร
+          </p>
+        </div>
+
+        <div class="customer-panel reveal delay-1">
+          <div class="logo-wall">
+            <div class="logo-card"><img src="Customer_Logos/AIT.png" alt="AIT logo"></div>
+            <div class="logo-card"><img src="Customer_Logos/Archi-tronic.png" alt="Archi-tronic logo"></div>
+            <div class="logo-card"><img src="Customer_Logos/DIP.jpg" alt="DIP logo"></div>
+            <div class="logo-card"><img src="Customer_Logos/Interlab.png" alt="Interlab logo"></div>
+            <div class="logo-card"><img src="Customer_Logos/PowerStainless.jpg" alt="Power Stainless logo"></div>
+            <div class="logo-card"><img src="Customer_Logos/Ritanan.jpg" alt="Ritanan logo"></div>
+            <div class="logo-card"><img src="Customer_Logos/SCG.png" alt="SCG logo"></div>
+            <div class="logo-card"><img src="Customer_Logos/TGI.jpg" alt="TGI logo"></div>
+            <div class="logo-card"><img src="Customer_Logos/texplore.png" alt="TExplore logo"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div>
+            <span>Contact</span>
+            <h2>ติดต่อเรา</h2>
+          </div>
+          <p>
+            หากต้องการเริ่มต้นโครงการใหม่ ปรับปรุงระบบเดิม หรือสอบถามเกี่ยวกับงานด้าน Automation, PCB, Software และ Firmware
+            สามารถติดต่อเราได้ผ่านข้อมูลด้านล่าง
+          </p>
+        </div>
+
+        <div class="contact-layout">
+          <div class="contact-card reveal delay-1">
+            <h3>ข้อมูลติดต่อ</h3>
+            <p>Plankton System Co., Ltd.</p>
+            <div class="contact-list">
+              <div class="contact-item">
+                <strong>อีเมล</strong>
+                <a href="mailto:info@xscalar.com">info@xscalar.com</a>
+              </div>
+              <div class="contact-item">
+                <strong>Facebook</strong>
+                <a href="https://www.facebook.com/planktonsystem/" target="_blank" rel="noreferrer">facebook.com/planktonsystem</a>
+              </div>
+              <div class="contact-item">
+                <strong>ที่ตั้ง</strong>
+                <span>301/1 Bangkok-Nonthaburi 13 Rd. Bangsue, Bangsue, Bangkok 10800, Thailand</span>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <a class="button button-primary" href="mailto:info@xscalar.com?subject=สอบถามโครงการกับ Plankton System">ส่งอีเมลหาเรา</a>
+              <a class="button button-secondary" href="https://www.facebook.com/planktonsystem/" target="_blank" rel="noreferrer">Facebook</a>
+            </div>
+          </div>
+
+          <div class="map-card reveal delay-2">
+            <h3>ตำแหน่งบริษัท</h3>
+            <p>สามารถเปิดดูเส้นทางและตำแหน่งของบริษัทผ่าน Google Maps ได้โดยตรง</p>
+            <div class="map-frame">
+              <iframe
+                title="แผนที่บริษัท Plankton System จำกัด"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                src="https://maps.google.com/maps?q=Plankton%20System%20301%2F1%20Bangkok-Nonthaburi%2013%20Rd.%20Bangsue%20Bangkok%2010800&z=17&output=embed"
+              ></iframe>
+            </div>
+            <div class="contact-actions">
+              <a class="button button-secondary" href="https://maps.app.goo.gl/VuM4p9T3h2xVXg247" target="_blank" rel="noreferrer">เปิดใน Google Maps</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© 2026 Plankton System Co., Ltd. All rights reserved.</p>
+    </div>
+  </footer>
 </body>
 </html>
